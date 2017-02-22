@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" >
+
+<head>
+  <title>Home work 8</title>
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8"> 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.min.js"></script> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-route.min.js"></script> 
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-sanitize.js"></script>
+  <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-2.2.0.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+
+  <script src="js/script.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="stylesheets/style.css" >
+  <script src="js/dirPagination.js"></script>
+
+
+</head>
+<body>
+
+  <div class="navbar navbar-default navbar-fixed-top" >
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".sidebar-nav">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
+
+      <a class="navbar-brand" id="navlogo"  target="_blank" href="http://sunlightfoundation.com/"><img src="img/logo.png" id="logoimg" ></a><h4 >Congress API</h4>
+
+
+    </div>
+
+
+
+  </div>
+
+  <div class="row-offcanvas row-offcanvas-left active">
+    <div id="sidebar" class="sidebar-offcanvas">
+      <div class="col-md-12" id="navicons" >
+
+        <ul class="nav nav-pills nav-stacked" id="tabs">
+          <!-- <li class="active"><a href="#">Section</a></li> -->
+          <li><a href="#tab1"> <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="hidden-xs">Legislators</span></a></li>
+          <li><a href="#tab2"> <span class="glyphicon glyphicon-file" aria-hidden="true"></span> <span class="hidden-xs">Bills</span></a></li>
+          <li><a href="#tab3"> <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> <span class="hidden-xs">Committees</span></a></li>
+          <li><a ng-click="load()" href="#tab4"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="hidden-xs">Favorites</span></a></li>
+
+        </ul>
+
+      </div>
+    </div>
+    <div  id="main">
+      <div class="col-md-12">
+
+
+
+        <div id='tab1' ng-controller="tab1Controller" >
+          <h1  >Legislators</h1>
+
+          <hr/>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="span12">
+
+
+
+
+
+
+
+
+
+
+
+                <!--carousel-->
+                <div id="carousel-example-generic" class="carousel slide" data-interval="false" >
+
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+
+                    <!-- carousel Tab1c -->
+                    <div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#state" data-toggle="tab">By State</a></li>
+                        <li><a href="#house" data-toggle="tab">House</a></li>
+                        <li><a href="#senate" data-toggle="tab">Senate</a></li>
+
+                      </ul>
+
+
+                      <!--All Tabs content-->   
+                      <div class="tab-content">
+                        <!-- State Tab-->
+                        <div class="tab-pane active" id="state">
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b> By State</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <select id="select" ng-model="selectedState" >
+                                        <option value="">All States</option>
+                                        <option ng-repeat="x in population | orderBy: 'state_name' | unique: 'state_name' ">{{x.state_name}}</option>
+                                      </select>
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                  <th>
+                                    Party 
+
+                                  </th>
+                                  <th>
+                                    Name 
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+                                  <th>
+                                    District
+
+                                  </th>
+
+                                  <th  >
+                                    State
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:selectedState | itemsPerPage:10" pagination-id="population">
+                                  <td><img  width="20px" height="20px" src="img/d.png" ng-src="{{x.party}}" ></td>
+                                  <td>{{x.last_name+","+x.first_name}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.district}}</td>
+                                  <td >{{x.state_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #state -->
+
+                        <div class="tab-pane" id="house">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span > <b> By House</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input  type="text" class="form-control input" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover" >
+                                <tr>
+                                  <th>
+                                    Party 
+
+                                  </th>
+                                  <th>
+                                    Name 
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+                                  <th>
+                                    District
+
+                                  </th>
+
+                                  <th  >
+                                    State
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:{chamber:'house'} | filter:search | itemsPerPage:10" pagination-id="population">
+                                  <td><img  width="20px" height="20px" src="img/d.png" ng-src="{{x.party}}" ></td>
+                                  <td>{{x.last_name+","+x.first_name}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.district}}</td>
+                                  <td >{{x.state_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #house -->
+
+                        <div class="tab-pane" id="senate">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>By Senate</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover" >
+                                <tr>
+                                  <th>
+                                    Party 
+
+                                  </th>
+                                  <th>
+                                    Name 
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+
+                                  <th  >
+                                    State
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:{chamber:'senate'}| filter:search | itemsPerPage:10" pagination-id="population">
+                                  <td><img  width="20px" height="20px" src="img/d.png" ng-src="{{x.party}}" ></td>
+                                  <td>{{x.last_name+","+x.first_name}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+
+                                  <td >{{x.state_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+                        </div><!-- @end #senate -->
+
+
+                      </div><!-- @end .tab-content -->
+
+                    </div> <!-- end carousel cTab1 -->
+                    <!-- carousel cTab2 -->
+                    <div class="item" id="detailspage">
+                      <div class="row" id="details">
+                        <!-- Controls -->
+                        <a class="left" href="#carousel-example-generic" role="button" data-slide="prev" >
+                          <button type="button"  class="left btn btn-default btn-lg" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                          </button>
+                        </a>
+                        <span class="detailsheading" > Details</span> 
+                        <button ng-click="save(viewdetails)" type="button" style="float:right; margin-top: 5px; "class="btn btn-default btn-lg" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" ng-class="class" aria-hidden="true"></span>
+
+                        </button>
+
+                        <hr>
+
+
+                      </div>
+                      <div class = "container">
+                        <div class="row">
+                          <!-- {{viewdetails}}-->
+                          <!--Bio column-->
+                          <div class="col-sm-6"><hr>
+                            <!--photo and name info row-->
+                            <div class="row">
+                              <!--photo column-->
+                              <div class="col-sm-6"><hr><img width="225px" height ="275px" ng-src="https://theunitedstates.io/images/congress/225x275/{{viewdetails.bioguide_id}}.jpg"></div>
+                              <!--name info column-->
+                              <div class="col-sm-6"><hr>{{viewdetails.title+","+viewdetails.last_name+","+viewdetails.first_name}}
+                                <hr>
+                                <a ng-href="mailto:{{viewdetails.oc_email}}" target="_top">{{viewdetails.oc_email}}</a> 
+                                <hr>
+                                chamber:{{viewdetails.chamber}}
+                                <hr>
+                                contact: <a ng-href="tel:{{viewdetails.phone}}"> {{viewdetails.phone}}</a>
+                                <hr>
+                                <img width="20px" height ="20px" ng-src="{{viewdetails.party}}"> {{viewdetails.fullpartyname}}
+                              </div> 
+                            </div>
+                            <hr>
+                            <!--More info rows-->
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">Start term</div>
+                              <div class="col-sm-8">{{ viewdetails.term_start | date }}</div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">End term</div>
+                              <div class="col-sm-8">{{ viewdetails.term_end | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">Term</div>
+                              <div class="col-sm-8"><div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{getPercentage()}}"
+                                aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage() + '%' ) }">
+                                {{getPercentage()}}% 
+                              </div>
+                            </div></div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Office</div>
+                            <div class="col-sm-8">{{viewdetails.office}}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">State</div>
+                            <div class="col-sm-8">{{viewdetails.state_name}}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Fax</div>
+                            <div class="col-sm-8"><a ng-href="fax:{{viewdetails.fax}}"> {{viewdetails.fax}}</a></div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Birthday</div>
+                            <div class="col-sm-8">{{ viewdetails.birthday | date }}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Social Links</div>
+                            <div class="col-sm-8">
+                              <a target="_blank" ng-href="https://www.twitter.com/{{viewdetails.twitter_id}}"><img width="30px" height ="30px" src="img/t.png"> </a>
+                              <a target="_blank" ng-href="https://www.facebook.com/{{viewdetails.facebook_id}}"> <img width="30px" height ="30px" src="img/f.png"> </a>
+                              <a target="_blank" ng-href="{{viewdetails.website}}"><img width="30px" height ="30px" src="img/w.png"></a> </div>
+                            </div>
+                          </div>
+
+                          <!--Committee and Bills column-->
+                          <div class="col-sm-6"><h3>Committee</h3>
+                            <div class="table-responsive">
+                              <table class="table " >
+                                <tr><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
+                                <tr ng-repeat="x in topcommittee">
+                                  <td>{{ x.chamber }}</td>
+                                  <td>{{ x.committee_id }}</td>
+                                  <td>{{ x.name }}</td>
+                                </tr>
+                              </table>
+                            </div>
+                            <!--{{topcommittee}}-->
+                            <h3>Bills</h3>
+                            <div class="table-responsive">
+                              <table class="table " >
+                                <tr><th>Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>
+                                <tr ng-repeat="x in topbills">
+                                  <td>{{ x.bill_id }}</td>
+                                  <td>{{ x.official_title }}</td>
+                                  <td>{{ x.chamber }}</td>
+                                  <td>{{ x.bill_type }}</td>
+                                  <td>{{ x.congress }}</td>
+                                  <td><a target="_blank" ng-href="{{ x.urls.congress }}">link</a></td>
+                                </tr>
+                              </table>
+                            </div>
+                            <!--{{topbills}}-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- end carousel Tab2 -->
+
+
+                <!-- Controls -->
+
+
+              </div> <!-- @end #span12 -->
+
+
+
+
+
+
+
+
+
+
+
+
+              </div><!-- @end .row -->
+          </div><!-- @end container-fluid -->
+
+        </div><!-- @end tab1 -->
+
+        <div id='tab2' ng-controller="tab2Controller" >
+
+          <h1  >Bills</h1>
+
+          <hr/>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="span12">
+
+
+
+
+
+
+
+
+
+
+
+                <!--carousel-->
+                <div id="carousel-example-generic2" class="carousel slide" data-interval="false" >
+
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+
+                    <!-- carousel Tab1c -->
+                    <div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activebills" data-toggle="tab">Active Bills</a></li>
+                        <li><a href="#inactivebills" data-toggle="tab">New Bills</a></li>
+
+
+                      </ul>
+
+
+                      <!--All Tabs content-->   
+                      <div class="tab-content">
+                        <!-- State Tab-->
+                        <div class="tab-pane active" id="activebills">
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Active Bills</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover" >
+                                <tr>
+                                  <th>
+
+                                    Bill ID 
+
+                                  </th>
+                                  <th>
+                                    Bill Type 
+
+                                  </th>
+                                  <th>
+                                    Title
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+                                  <th  >
+                                    Introduction On
+                                  </th>
+                                  <th>
+                                    Sponsor
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | itemsPerPage:10" pagination-id="population">
+                                  <td>{{x.bill_id}}</td>
+                                  <td>{{x.bill_type}}</td>
+                                  <td>{{x.official_title}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.introduced_on}}</td>
+                                  <td >{{x.sponsor.title+", "+x.sponsor.last_name+", "+x.sponsor.first_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic2" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #active bills -->
+
+                        <div class="tab-pane" id="inactivebills">
+
+
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>New Bills</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover" >
+                                <tr>
+                                  <th>
+
+                                    Bill ID 
+
+                                  </th>
+                                  <th>
+                                    Bill Type 
+
+                                  </th>
+                                  <th>
+                                    Title
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+                                  <th  >
+                                    Introduction On
+                                  </th>
+                                  <th>
+                                    Sponsor
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:{activebills:'false'}|filter:search | itemsPerPage:10" pagination-id="population">
+                                  <td>{{x.bill_id}}</td>
+                                  <td>{{x.bill_type}}</td>
+                                  <td>{{x.official_title}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.introduced_on}}</td>
+                                  <td >{{x.sponsor.title+", "+x.sponsor.last_name+", "+x.sponsor.first_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic2" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div><!-- @end #house -->
+
+
+
+                      </div><!-- @end .tab-content -->
+
+                    </div> <!-- end carousel cTab1 -->
+                    <!-- carousel cTab2 -->
+                    <div class="item" id="detailspage2">
+                      <div class="row" id="details2">
+                        <!-- Controls -->
+                        <a class="left" href="#carousel-example-generic2" role="button" data-slide="prev" >
+                          <button type="button"  class="left btn btn-default btn-lg" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                          </button>
+                        </a>
+                        <span class="detailsheading" > Details</span> 
+                        <button ng-click="savebills(viewdetails)" type="button" style="float:right;margin-top: 5px;"class="btn btn-default btn-lg" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" ng-class="class" aria-hidden="true"></span>
+
+                        </button>
+
+                        <hr>
+
+
+                      </div>
+                      <div class = "container">
+                        <div class="row">
+                          <!-- {{viewdetails}}-->
+                          <!--Bio column-->
+                          <div class="col-sm-6"><hr>
+                            <!--photo and name info row-->
+
+                            <hr>
+                            <!--More info rows-->
+                            <div class="row">
+                              <div class="col-sm-4">Bill ID</div>
+                              <div class="col-sm-8">{{ viewdetails.bill_id  }}</div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Title</div>
+                              <div class="col-sm-8">{{ viewdetails.official_title }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Bill Type</div>
+                              <div class="col-sm-8">
+                                {{ viewdetails.bill_type }}
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Sponsor</div>
+                              <div class="col-sm-8">{{viewdetails.sponsor.title+", "+viewdetails.sponsor.last_name+", "+viewdetails.sponsor.first_name}}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Chamber</div>
+                              <div class="col-sm-8">{{viewdetails.chamber}}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Introduced On</div>
+                              <div class="col-sm-8">{{ viewdetails.introduced_on | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Congress URL</div>
+                              <div class="col-sm-8"><a target="_blank" ng-href="{{viewdetails.urls.congress}}"> Url</a></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Version Status</div>
+                              <div class="col-sm-8">{{ viewdetails.last_version.version_name | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Bill URL</div>
+                              <div class="col-sm-8"><a target="_blank" ng-href="{{viewdetails.last_version.urls.pdf}}">Link</a></div>
+                            </div>
+                            <br><br>
+
+                          </div>
+
+                          <!--PDF column-->
+                          <div class="col-sm-6">
+
+                            <object  width="100%" height="550" ng-attr-data="{{viewdetails.last_version.urls.pdf}}">
+                            </object>
+
+                          </div>
+                          <hr>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- end carousel Tab2 -->
+
+
+                <!-- Controls -->
+
+
+              </div> <!-- @end #carousel -->
+
+
+
+
+
+
+
+
+
+
+
+
+            </div><!-- @end .span12 -->
+          </div><!-- @end .row -->
+
+
+        </div><!-- @end tab2 -->
+
+
+
+        <div id='tab3' ng-controller="tab3Controller">
+          
+          <h1  >Committees</h1>
+
+          <hr/>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="span12">
+
+
+
+
+
+
+
+
+
+
+
+                <!--carousel-->
+                
+
+
+                  <!-- Wrapper for slides -->
+                  
+
+                    <!-- item active -->
+                    <div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a href="#housec" data-toggle="tab">House</a></li>
+                        <li><a href="#senatec" data-toggle="tab">Senate</a></li>
+                        <li><a href="#joint" data-toggle="tab">Joint</a></li>
+
+                      </ul>
+
+
+                      <!--All Tabs content-->   
+                      <div class="tab-content">
+                        <!-- State Tab-->
+                        <div class="tab-pane active" id="housec">
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>House</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Parent Committee
+
+                                  </th>
+
+                                  <th  >
+                                    Contact
+                                  </th>
+                                  <th>
+                                      Office
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | filter:{chamber:'house'} | itemsPerPage:10" pagination-id="population">
+                                  <td> <button ng-click="savecomm(x,$index)" type="button" style="float:left;margin-top: 5px;"class="btn btn-default" aria-label="Left Align" >
+                          <span class="glyphicon glyphicon-star-empty" ng-class="{ yellow: x.fave }" aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  <td >{{x.parent_committee_id}}</td>
+                                  <td> {{x.phone}}</td>
+                                  <td> {{x.office}}</td>
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #housec -->
+
+                        <div class="tab-pane" id="senatec">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Senate</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Parent Committee
+
+                                  </th>
+
+                                  
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | filter:{chamber:'senate'} |itemsPerPage:10" pagination-id="population">
+                                  <td> <button ng-click="savecomm(x,$index)" type="button" style="float:left;margin-top: 5px;"class="btn btn-default" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" ng-class="{ yellow: x.fave }" aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  <td >{{x.parent_committee_id}}</td>
+                                  
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #senatec -->
+
+                        <div class="tab-pane" id="joint">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Joint</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                 
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | filter:{chamber:'joint'} | itemsPerPage:10" pagination-id="population">
+                                  <td> <button ng-click="savecomm(x,$index)" type="button" style="float:left;margin-top: 5px;"class="btn btn-default" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" ng-class="{ yellow: x.fave }" aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+                        </div><!-- @end #joint -->
+
+
+                      </div><!-- @end .tab-content -->
+
+                    </div> <!-- end item active  -->
+                    
+                    
+                  
+                
+
+
+                <!-- Controls -->
+
+
+              </div> <!-- @end #span12 -->
+
+
+
+
+
+
+
+
+
+
+
+
+              </div><!-- @end .row -->
+          </div><!-- @end container-fluid -->
+        </div><!-- @end tab3 -->
+
+
+
+        <div id='tab4' ng-controller="tab4Controller" >
+          
+          
+          <h1  >Favorites</h1>
+
+          <hr/>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="span12">
+
+                <!--carousel-->
+              
+                  <!-- Wrapper for slides -->
+                  
+
+                    <!--carousel-->
+                <div id="carousel-example-generic3" class="carousel slide" data-interval="false" >
+
+
+                  <!-- Wrapper for slides -->
+                  <div class="carousel-inner" role="listbox">
+
+                    <!-- carousel Tab1c -->
+                    <div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a  href="#lagislatorsf" data-toggle="tab">Lagislators</a></li>
+                        <li><a href="#billsf" data-toggle="tab">Bills</a></li>
+                        <li><a href="#committeef" data-toggle="tab">Committees</a></li>
+
+                      </ul>
+
+
+                      <!--All Tabs content-->   
+                      <div class="tab-content">
+                        <!-- State Tab-->
+                        <div class="tab-pane active" id="lagislatorsf">
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Lagislators</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                     
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Image 
+
+                                  </th>
+                                  <th>
+                                    Party
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+
+                                  <th >
+                                    State
+                                  </th>
+                                  <th>
+                                      Email
+                                  </th>
+                                  <th>
+                                    
+                                  </th>
+                                </tr>
+                                <tr  ng-repeat="x in population ">
+                                <!--removeRow($index, x)-->
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align" ng-click="removeRow($index, x)" >
+                          <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+
+                        </button> </td>
+                                  <td><img  width="30px" height="35px" ng-src="https://theunitedstates.io/images/congress/225x275/{{x.bioguide_id}}.jpg" ></td>
+                                  <td><img  width="20px" height="20px" src="img/d.png" ng-src="{{x.party}}" ></td>
+                                  <td>{{x.last_name+","+x.first_name}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.state_name}}</td>
+                                  <td >{{x.oc_email}}</td>
+                                  <td ng-click="detailsf(x)" ><a  ><a   role="button" data-target="#carousel-example-generic3" data-slide-to="1"  class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                               
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #lagislatorf -->
+
+                        <div class="tab-pane" id="billsf">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Bills</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover" >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+
+                                    Bill ID 
+
+                                  </th>
+                                  <th>
+                                    Bill Type 
+
+                                  </th>
+                                  <th>
+                                    Title
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+                                  <th  >
+                                    Introduction On
+                                  </th>
+                                  <th>
+                                    Sponsor
+                                  </th>
+                                  <th>
+
+                                  </th>
+                                </tr>
+                                <tr  ng-repeat="x in population2 ">
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align" ng-click="removeRow2($index, x)" >
+                          <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+
+                        </button> </td>
+                                  <td>{{x.bill_id}}</td>
+                                  <td>{{x.bill_type}}</td>
+                                  <td>{{x.official_title}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.introduced_on}}</td>
+                                  <td >{{x.sponsor.title+", "+x.sponsor.last_name+", "+x.sponsor.first_name}}</td>
+                                  <!-- Controls -->
+                                  <td ng-click="detailsf(x)" ><a  ><a  href="#carousel-example-generic2" role="button" data-target="#carousel-example-generic3" data-slide-to="2" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+
+                                </tr>
+
+                              </table>
+                            </div>
+                                
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #billsf -->
+
+                        <div class="tab-pane" id="committeef">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Committee</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Parent Committee
+
+                                  </th>
+                                  <th>
+                                    Sub Committee
+
+                                  </th>
+                                 
+                                </tr>
+                                <tr  ng-repeat="x in population3 ">
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align" ng-click="removeRow3($index, x)" >
+                          <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  <td >{{x.parent_committee_id}}</td>
+                                  <td >{{x.subcommittee}}</td>
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                                 
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+                        </div><!-- @end #joint -->
+
+
+                      </div><!-- @end .tab-content -->
+
+                    </div> <!-- end item active  -->
+                    <!-- carousel cTab2 -->
+                    <div class="item" id="detailspage3">
+                      <div class="row" id="details3">
+                        <!-- Controls -->
+                        <a class="left" href="#carousel-example-generic3" role="button" data-slide="prev" >
+                          <button type="button"  class="left btn btn-default btn-lg" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                          </button>
+                        </a>
+                        <span class="detailsheading" > Details</span> 
+                        <button ng-click="save(viewdetails)" type="button" style="float:right;margin-top: 5px;"class="btn btn-default btn-lg" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star yellow" ng-class="class" aria-hidden="true"></span>
+
+                        </button>
+
+                        <hr>
+
+
+                      </div>
+                      <div class = "container">
+                        <div class="row">
+                          <!-- {{viewdetails}}-->
+                          <!--Bio column-->
+                          <div class="col-sm-6"><hr>
+                            <!--photo and name info row-->
+                            <div class="row">
+                              <!--photo column-->
+                              <div class="col-sm-6"><hr><img width="225px" height ="275px" ng-src="https://theunitedstates.io/images/congress/225x275/{{viewdetails.bioguide_id}}.jpg"></div>
+                              <!--name info column-->
+                              <div class="col-sm-6"><hr>{{viewdetails.title+","+viewdetails.last_name+","+viewdetails.first_name}}
+                                <hr>
+                                <a ng-href="mailto:{{viewdetails.oc_email}}" target="_top">{{viewdetails.oc_email}}</a> 
+                                <hr>
+                                chamber:{{viewdetails.chamber}}
+                                <hr>
+                                contact: <a ng-href="tel:{{viewdetails.phone}}"> {{viewdetails.phone}}</a>
+                                <hr>
+                                <img width="20px" height ="20px" ng-src="{{viewdetails.party}}"> {{viewdetails.fullpartyname}}
+                              </div> 
+                            </div>
+                            <hr>
+                            <!--More info rows-->
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">Start term</div>
+                              <div class="col-sm-8">{{ viewdetails.term_start | date }}</div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">End term</div>
+                              <div class="col-sm-8">{{ viewdetails.term_end | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="hidden-xs col-sm-4">Term</div>
+                              <div class="col-sm-8"><div class="progress">
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{getPercentage()}}"
+                                aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercentage() + '%' ) }">
+                                {{getPercentage()}}% 
+                              </div>
+                            </div></div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Office</div>
+                            <div class="col-sm-8">{{viewdetails.office}}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">State</div>
+                            <div class="col-sm-8">{{viewdetails.state_name}}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Fax</div>
+                            <div class="col-sm-8"><a ng-href="fax:{{viewdetails.fax}}"> {{viewdetails.fax}}</a></div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Birthday</div>
+                            <div class="col-sm-8">{{ viewdetails.birthday | date }}</div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="hidden-xs col-sm-4">Social Links</div>
+                            <div class="col-sm-8">
+                              <a target="_blank" ng-href="https://www.twitter.com/{{viewdetails.twitter_id}}"><img width="30px" height ="30px" src="img/t.png"> </a>
+                              <a target="_blank" ng-href="https://www.facebook.com/{{viewdetails.facebook_id}}"> <img width="30px" height ="30px" src="img/f.png"> </a>
+                              <a target="_blank" ng-href="{{viewdetails.website}}"><img width="30px" height ="30px" src="img/w.png"></a> </div>
+                            </div>
+                          </div>
+
+                          <!--Committee and Bills column-->
+                          <div class="col-sm-6"><h3>Committee</h3>
+                            <div class="table-responsive">
+                              <table class="table " >
+                                <tr><th>Chamber</th><th>Committee ID</th><th>Name</th></tr>
+                                <tr ng-repeat="x in topcommittee">
+                                  <td>{{ x.chamber }}</td>
+                                  <td>{{ x.committee_id }}</td>
+                                  <td>{{ x.name }}</td>
+                                </tr>
+                              </table>
+                            </div>
+                            <!--{{topcommittee}}-->
+                            <h3>Bills</h3>
+                            <div class="table-responsive">
+                              <table class="table " >
+                                <tr><th>Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>
+                                <tr ng-repeat="x in topbills">
+                                  <td>{{ x.bill_id }}</td>
+                                  <td>{{ x.official_title }}</td>
+                                  <td>{{ x.chamber }}</td>
+                                  <td>{{ x.bill_type }}</td>
+                                  <td>{{ x.congress }}</td>
+                                  <td><a target="_blank" ng-href="{{ x.urls.congress }}">link</a></td>
+                                </tr>
+                              </table>
+                            </div>
+                            <!--{{topbills}}-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="item" id="detailspage4">
+                      <div class="row" id="details4">
+                        <!-- Controls -->
+                        <a class="left" href="#carousel-example-generic3" role="button" data-slide-to="0" >
+                          <button type="button"  class="left btn btn-default btn-lg" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+                          </button>
+                        </a>
+                        <span class="detailsheading" > Details</span> 
+                        <button ng-click-"savebills(viewdetails)"type="button" style="float:right;margin-top: 5px;"class="btn btn-default btn-lg" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star yellow" ng-class="class" aria-hidden="true"></span>
+
+                        </button>
+
+                        <hr>
+
+
+                      </div>
+                      <div class = "container">
+                        <div class="row">
+                          <!-- {{viewdetails}}-->
+                          <!--Bio column-->
+                          <div class="col-sm-6"><hr>
+                            <!--photo and name info row-->
+
+                            <hr>
+                            <!--More info rows-->
+                            <div class="row">
+                              <div class="col-sm-4">Bill ID</div>
+                              <div class="col-sm-8">{{ viewdetails.bill_id  }}</div>
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Title</div>
+                              <div class="col-sm-8">{{ viewdetails.official_title }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Bill Type</div>
+                              <div class="col-sm-8">
+                                {{ viewdetails.bill_type }}
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Sponsor</div>
+                              <div class="col-sm-8">{{viewdetails.sponsor.title+", "+viewdetails.sponsor.last_name+", "+viewdetails.sponsor.first_name}}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Chamber</div>
+                              <div class="col-sm-8">{{viewdetails.chamber}}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Introduced On</div>
+                              <div class="col-sm-8">{{ viewdetails.introduced_on | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Congress URL</div>
+                              <div class="col-sm-8"><a target="_blank" ng-href="{{viewdetails.urls.congress}}"> Url</a></div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Version Status</div>
+                              <div class="col-sm-8">{{ viewdetails.last_version.version_name | date }}</div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class=" col-sm-4">Bill URL</div>
+                              <div class="col-sm-8"><a target="_blank" ng-href="{{viewdetails.last_version.urls.pdf}}">Link</a></div>
+                            </div>
+                            <br><br>
+
+                          </div>
+
+                          <!--PDF column-->
+                          <div class="col-sm-6">
+
+                            <object  width="100%" height="550" ng-attr-data="{{viewdetails.last_version.urls.pdf}}">
+                            </object>
+
+                          </div>
+                          <hr>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div><!-- end carousel Tab -->
+
+                    </div> <!-- end item active  -->
+                    
+                    
+                  
+                
+
+
+                <!-- Controls -->
+
+
+              </div> <!-- @end #span12 -->
+
+
+
+
+
+
+
+
+
+
+
+
+              </div><!-- @end .row -->
+          </div><!-- @end container-fluid -->
+        </div><!-- @end tab4 -->
+
+
+
+      </div><!--end cod md 10 -->
+
+
+
+
+
+
+
+    </div><!-- @end main -->
+
+  </div><!--/row-offcanvas -->
+
+
+
+</body>
+</html>

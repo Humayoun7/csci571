@@ -1,0 +1,25 @@
+application: csci-hw8
+version: 1
+runtime: php55
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /img
+  static_dir: img
+
+- url: /js
+  static_dir: js
+
+- url: /hw8server.php
+  script: hw8server.php
+
+- url: .*
+  script: index.html

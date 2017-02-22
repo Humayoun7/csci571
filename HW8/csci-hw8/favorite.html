@@ -1,0 +1,261 @@
+<div class="item active">
+                      <ul class="nav nav-tabs">
+                        <li class="active"><a  href="#lagislatorsf" data-toggle="tab">Lagislators</a></li>
+                        <li><a href="#billsf" data-toggle="tab">Bills</a></li>
+                        <li><a href="#committeef" data-toggle="tab">Committees</a></li>
+
+                      </ul>
+
+
+                      <!--All Tabs content-->   
+                      <div class="tab-content">
+                        <!-- State Tab-->
+                        <div class="tab-pane active" id="lagislatorsf">
+
+
+
+
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Lagislators</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+                                     
+
+
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Image 
+
+                                  </th>
+                                  <th>
+                                    Party
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Chamber
+
+                                  </th>
+
+                                  <th >
+                                    State
+                                  </th>
+                                  <th>
+                                      Email
+                                  </th>
+                                  <th>
+                                    
+                                  </th>
+                                </tr>
+                                <tr  dir-paginate="x in population |  itemsPerPage:100" pagination-id="population">
+                                <!--removeRow($index, x)-->
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align" ng-click="removeRow($index, x)" >
+                          <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+
+                        </button> </td>
+                                  <td><img  width="30px" height="35px" ng-src="https://theunitedstates.io/images/congress/225x275/{{x.bioguide_id}}.jpg" ></td>
+                                  <td><img  width="20px" height="20px" src="img/d.png" ng-src="{{x.party}}" ></td>
+                                  <td>{{x.last_name+","+x.first_name}}</td>
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.state_name}}</td>
+                                  <td >{{x.oc_email}}</td>
+                                  <td ng-click="details(x)" ><a  ><a   role="button" data-target="#carousel-example-generic3" data-slide-to="1"  class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #lagislatorf -->
+
+                        <div class="tab-pane" id="billsf">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Bills</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                  <th>
+                                    Parent Committee
+
+                                  </th>
+
+                                  
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | filter:{chamber:'senate'} |itemsPerPage:10" pagination-id="population">
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  <td >{{x.parent_committee_id}}</td>
+                                  <td ng-click="details(x)" ><a  ><a  href="#carousel-example-generic" role="button" data-slide="next" class="btn btn-primary btn active"  >Veiw Details<a/></a></td>
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+
+                        </div><!-- @end #billsf -->
+
+                        <div class="tab-pane" id="committeef">
+
+
+
+
+                          <!--Table-->
+                          <div  >
+
+
+                            <div class="well">
+                              <span> <b>Joint</b></span>
+                              <span class="right">
+                                <form class="form-inline">
+                                  <div class="form-group">
+                                    <div class="input-group">
+
+                                      <input type="text" class="form-control" placeholder="Search" ng-model="search">
+                                    </div>
+                                  </div>
+                                </form>
+                              </span>
+                            </div>
+                            <div class="table-responsive">
+                              <table class="table table-hover " >
+                                <tr>
+                                <th>
+                                  
+                                </th>
+                                  <th>
+                                    Chamber 
+
+                                  </th>
+                                  <th>
+                                    Committee ID 
+
+                                  </th>
+                                  <th>
+                                    Name
+
+                                  </th>
+                                 
+                                </tr>
+                                <tr  dir-paginate="x in population | filter:search | filter:{chamber:'joint'} | itemsPerPage:10" pagination-id="population">
+                                  <td> <button type="button" style="float:left;"class="btn btn-default" aria-label="Left Align">
+                          <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+
+                        </button> </td>
+                                  
+                                  <td><img width="20px" height="20px" src="img/d.png" ng-src="{{x.chimage}}" > {{x.chamber}}</td>
+                                  <td>{{x.committee_id}}</td>
+                                  <td>{{x.name}}</td>
+                                  
+                                  
+                                  
+
+                                </tr>
+
+                              </table>
+                            </div>
+                            <center>
+                              <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="population"></dir-pagination-controls>
+                            </center>      
+
+                          </div><!-- @end table -->
+
+
+
+
+
+
+                        </div><!-- @end #joint -->
+
+
+                      </div><!-- @end .tab-content -->
+
+                    </div> <!-- end item active  -->

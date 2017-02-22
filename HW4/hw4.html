@@ -1,0 +1,224 @@
+
+<html>
+
+<head>
+	<title>View Newspaper list</title>
+<!--
+<BODY>
+This is for USC disclaimer
+</BODY>
+-->
+<script>
+
+
+
+//to check error conditions
+var xmlFileError=false;
+var containsRow=false;
+var fileNotFound=false;
+	function generateHTML(xmlDoc)
+{  ELEMENT_NODE = 1;    // MS parser doesn't define Node.ELEMENT_NODE
+root=xmlDoc.DocumentElement;
+html_text='<html><style>body {overflow: auto;}</style><head><title>XML Parse Result</title></head><body>';
+html_text+="<table border='1' CELLPADDING='6' WIDTH='800'  >";
+//  caption=xmlDoc.getElementsByTagName("title").item(0).firstChild.nodeValue;
+//html_text+="<caption ><h1>"+caption+"</h1></caption><br/>";
+
+console.log("xmlDoc is : "+xmlDoc);
+
+rows=xmlDoc.getElementsByTagName("Row");
+
+
+if(rows.length==0){
+xmlFileError=true;
+//console.log("no rows "+rows.length);
+
+}
+rows.values
+rowNodeList=rows.item(0).childNodes;
+heads=xmlDoc.getElementsByTagName("Header");
+headNodeList=heads.item(0).childNodes;
+html_text+='<tbody  >';
+html_text+="<tr>";
+x=175;  y=130;
+// output the headers
+for(i=0;i<headNodeList.length;i++)
+	{  if(headNodeList.item(i).nodeType==ELEMENT_NODE)
+		{  	
+			header="";
+			if(headNodeList.item(i).hasChildNodes()==true){
+			header=headNodeList.item(i).firstChild.nodeValue;
+			console.log("header is: "+header);
+			
+			  
+			}
+			html_text+="<th>"+header+"</th>";
+		}  
+	}
+	html_text+="</tr>";
+   // output out the values
+
+   for(i=0;i<rows.length;i++) //do for all rows
+   {  rowNodeList=rows.item(i).childNodes; //get properties of a row
+   	
+
+       html_text+="<tr>";      //start a new row of the output table
+       for(j=0;j<rowNodeList.length;j++)
+       	{  if(rowNodeList.item(j).nodeType==ELEMENT_NODE)
+       		{     console.log(j+" NodeName: "+ rowNodeList.item(j).nodeName);
+       		if(rowNodeList.item(j).nodeName=="Logo"){
+					//handle images separately
+					imagenodevalue='';
+					if(rowNodeList.item(j).hasChildNodes()==true){
+					imagenodevalue=rowNodeList.item(j).firstChild.nodeValue;
+					
+					
+				    } 
+				    html_text+="<td><img src='"+ imagenodevalue+"' width='"+x+"' height='"+y+"'></td>"; 
+
+				}
+					else if(rowNodeList.item(j).nodeName=="Location"){
+						LocationNodeList=rowNodeList.item(j).childNodes;
+						html_text+="<td>";
+						for (var k = 0; k < LocationNodeList.length; k++) {
+							
+							if(LocationNodeList.item(k).nodeType==ELEMENT_NODE){
+								//city and state
+								console.log(j+" NodeName : "+ LocationNodeList.item(k).nodeName);
+
+								var cityState=""
+								if(LocationNodeList.item(k).hasChildNodes()==true){
+									cityState=LocationNodeList.item(k).firstChild.nodeValue;
+									//check for white space
+									if(cityState.match(/^\s+$/) === null){
+									
+									html_text+="<li>"+cityState+"</li>";
+										}
+								 }
+
+								
+
+
+							}
+
+						};
+						html_text+="</td>";
+
+					}
+					else if(rowNodeList.item(j).nodeName=="HomePage"){
+					//handle anchors separately
+					linknodevalue ="";
+					if(rowNodeList.item(j).hasChildNodes()==true){
+					linknodevalue=rowNodeList.item(j).firstChild.nodeValue ;
+					}
+					html_text+="<td><a href='"+linknodevalue+"'>"+ linknodevalue + "</a></td>";  
+				}
+					else {
+
+						rownodevalue= "";
+						if(rowNodeList.item(j).hasChildNodes()==true){
+						rownodevalue=rowNodeList.item(j).firstChild.nodeValue;
+						}
+						html_text+="<td>"+rownodevalue+"</td>";
+					}   
+
+				}    
+			}
+			html_text+="</tr>";  }
+			html_text+="</tbody>";  html_text+="</table>";
+			html_text+="</body></html>";  
+		}
+
+
+// 		window.onerror=function(){
+//  alert('An error has occurred!')
+//  return true
+// }
+
+window.onerror = function(msg, url, linenumber) {
+
+
+	// if(!errorAlreadydisplayed)
+	// alert('Error: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+
+	if(msg=='NS_ERROR_DOM_BAD_URI: Access to restricted URI denied' || fileNotFound){
+		alert('File does not exist');
+	
+	}
+	else if( containsRow && xmlFileError){
+alert('Error in XML file');
+
+	}
+	else if(xmlFileError && !containsRow){
+
+alert('There are no newspapers in that XML file');
+	}		
+			else{
+				
+	alert('Error: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+	
+			}
+	return true;
+}
+function viewXML(what)
+{ 
+	    xmlFileError=false;
+        containsRow=false;
+        fileNotFound=false;
+
+	var URL = what.URL.value;
+	function loadXML(url) {
+		if (window.XMLHttpRequest)
+{// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();   }
+else {// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  }
+	xmlhttp.open("GET",url,false);
+	xmlhttp.send();
+	xmlDoc=xmlhttp.responseXML;
+	xmlFileText=xmlhttp.responseText;
+	xmlStatus = xmlhttp.status;
+	if(xmlFileText.indexOf("Row")!== -1){
+		containsRow = true;
+	}
+	if(xmlStatus==404){
+		fileNotFound=true;
+	}
+
+	console.log("containsRow: "+containsRow);
+//	console.log("xmlDoc: "+xmlhttp.responseText);
+	return xmlDoc;   }
+	xmlDoc = loadXML(URL);
+if (window.ActiveXObject) //if IE, simply execute script (due to async prop).
+	{  if (xmlDoc.parseError.errorCode != 0) {
+		var myErr = xmlDoc.parseError;
+		generateError(xmlDoc);
+		hWin = window.open("", "Error", "height=300,width=340");
+		hWin.document.write(html_text);
+	} else {  generateHTML(xmlDoc);
+		hWin = window.open("", "Assignment4", "height=1000,width=1000");
+		hWin.document.write(html_text);   }
+} else //else if FF, execute script once XML object has loaded
+{    
+	  
+  //Run your code here
+  xmlDoc.onload=generateHTML(xmlDoc);
+  hWin = window.open("", "Assignment4", "height=1000,width=1000,scrollbars=1");
+  hWin.document.write(html_text); 
+
+
+
+}
+hWin.document.close();  }
+</script>
+</head>
+<body>
+	<h1>Enter URL for Newspaper List XML File </h1>
+	
+	<form name="myform" method="POST" id="location">
+		<input type="text" name="URL" maxlength="255" size="100" value="newslist.xml" required />
+		<br />
+		<input type="button" name="submit" value="Submit Query" onClick="viewXML(this.form)" />
+	</form>
+</body>
+</html>

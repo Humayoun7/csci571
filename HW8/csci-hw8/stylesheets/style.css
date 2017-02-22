@@ -1,0 +1,251 @@
+
+body,html,.row-offcanvas {
+  height:100%;
+}
+
+body {
+  padding-top: 50px;
+}
+/*
+.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #424242;
+}
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.nav>li>a:hover {
+    text-decoration: none;
+    background-color: #424242;
+}
+a:focus, a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+min-width: 180px;
+  max-width: 180px;
+*/
+#sidebar {
+  width: 11%;
+  
+  background-color:#424242;
+  float: left;
+  height:100%;
+  position:relative;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-top: 16px;
+
+}
+#sidebar a {
+    color: #c5c5c5;
+    text-decoration: none;
+}
+#sidebar a:hover {
+ color: #c5c5c5;
+ background-color:#424242;  
+}
+#sidebar a.nohover:hover { 
+  color: none;  
+}
+
+#tabs>li>a:focus, #tabs>li>a:hover {
+    text-decoration: none;
+    color:#efefef;
+    background-color: #424242;
+}
+.nav>li>a:focus, .nav>li>a:hover {
+    text-decoration: none;
+    color:#9a9a9a;
+    background-color: #ffffff;
+}
+
+.nav li a {
+    color: #9a9a9a;
+    text-decoration: none;
+}
+
+.table-responsive
+{
+    overflow-x: auto;
+}
+
+#activebills  th{
+  width: 14.28%;
+}
+#billsf  th{
+  width: 14.28%;
+}
+ #inactivebills th{
+  width: 14.28%;
+}
+#house th{
+  width: 16.66%;
+}
+#state th{
+  width: 16.66%;
+}
+#senate th{
+  width: 20%;
+}
+
+#main {
+  height:100%;
+  overflow:auto;
+  background-color: #fafafa;
+}
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
+}
+#table  {
+  color : white;
+  background-color: #ffffff;
+  padding : 5px 15px;
+}
+.container-fluid {
+  background: #fff;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0px 36px;
+  margin-right: 0px;
+  margin-left: 0px;
+  width: 100%
+}
+hr {
+  width: 100%;
+}
+
+.right{
+  float:right;
+  margin-top: -8px;
+}
+.form-control{
+  width: 30%;
+}
+.well{
+  margin-top: 15px;
+  margin-bottom: 0px;
+
+}
+ul.nav {
+  margin-bottom: 0 !important;
+}
+table.table.table-hover {
+    border: 1px solid #ececec;
+}
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    margin-left: -20px;
+}
+.carousel-inner {
+    
+     overflow: visible;
+}
+.item .row .detailsheading{
+
+font-size: 28px;
+
+}
+
+.item .row hr{
+margin-top: 8px;
+margin-bottom: 12px;
+
+}
+.navbar {
+    
+    height: 50px;
+    
+}
+.yellow{
+  color:yellow;
+  
+  font-weight: bolder;
+}
+#logoimg{
+  margin: -6px -9% 0px 0px;
+}
+#navicons{
+  padding-left:5px;
+}
+#navlogo{
+  margin-left:30%;
+}
+@media (min-width: 768px){
+.navbar-header {
+    float: inherit;
+}
+}
+@media(max-width: 480px) {
+  #logoimg{
+  margin: -6px -9px 0px -90px;
+  
+}
+#navicons{
+  padding-left:0px;
+  margin: 2px 0px 0px -6px;
+}
+#navlogo{
+  margin-left:25%;
+}
+
+.right {
+    float: right;
+    margin-top: -8px;
+    width: 46%;
+}
+
+#select{
+  width: 100%;
+}
+}
+
+/*
+ * off Canvas sidebar
+ * --------------------------------------------------
+ */
+
+  .row-offcanvas {
+    position: relative;
+    /*-webkit-transition: all 0.05s ease-out;
+    -moz-transition: all 0.05s ease-out;
+    transition: all 0.05s ease-out;*/
+    
+  }
+    
+  .row-offcanvas-left
+  {
+    left: 0;
+
+  }
+
+  .row-offcanvas-left.active {
+    left: 0;
+  }
+
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    
+  }
+  .sidebar-offcanvas.inactive {
+    display: none;
+    
+  }
+.navbar-toggle {
+        display: block;
+        float: left;
+        margin-left: 10px;
+    }
+
+.center-block{
+  margin-left: 40%;
+  display:inline-block;
+  text-align:center;
+    
+}
+
